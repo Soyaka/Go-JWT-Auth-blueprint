@@ -25,7 +25,7 @@ func Login(c *gin.Context) {
 		return
 	}
 	errHash := utils.CompareHashPwd(user.Password, existingUser.Password)
-	if errHash != nil {
+	if !errHash {
 		c.JSON(400, gin.H{"error": "invalid password"})
 	}
 
@@ -116,9 +116,7 @@ func Premium(c *gin.Context) {
 	c.JSON(200, gin.H{"success": " premuim page ", "role": "admin"})
 }
 
-
-
-func Logout( c *gin.Context){
-	c.SetCookie("token", "", -1, "/" ,"localhost", false , true)
+func Logout(c *gin.Context) {
+	c.SetCookie("token", "", -1, "/", "localhost", false, true)
 	c.JSON(200, gin.H{"message ": "logut success"})
 }
